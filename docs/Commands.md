@@ -1,31 +1,32 @@
-# Run in background (detached mode)
+# Run from the backend directory
 ```pwsd
-docker-compose up --build -d
+cd backend
+docker compose up --build -d
 ```
 
 # View logs
 ```pwsd
-docker-compose logs -f backend
+docker compose logs -f backend
 ```
 
 # Stop everything
 ```pwsd
-docker-compose down
+docker compose down
 ```
 
 # Stop and wipe the database volume (fresh start)
 ```pwsd
-docker-compose down -v
+docker compose down -v
 ```
 
 # Create a Django superuser
 ```pwsd
-docker-compose exec backend python manage.py createsuperuser
+docker compose exec backend python manage.py createsuperuser
 ```
 
 # Run Django shell
 ```pwsd
-docker-compose exec backend python manage.py shell
+docker compose exec backend python manage.py shell
 ```
 
 # Make migrations
@@ -40,13 +41,13 @@ docker compose exec backend python manage.py migrate
 
 # Clear Database
 ```pwsd
-docker-compose down -v
-docker-compose up --build -d
+docker compose down -v
+docker compose up --build -d
 ```
 
 # React Frontend
 ```pwsd
-cd d:\Close-Scale\frontend
+cd ..\frontend
 npm install
 npm run dev
 ```
