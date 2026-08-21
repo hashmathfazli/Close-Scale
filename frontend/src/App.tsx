@@ -11,7 +11,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import LoginPage from "./pages/LoginPage";
-import DashboardStubPage from "./pages/DashboardStubPage";
+import RoleDashboardPage from "./pages/RoleDashboardPage";
 import Layout from "./components/Layout";
 import UsersPage from "./pages/admin/UsersPage";
 import ActivatePage from "./pages/ActivatePage";
@@ -41,11 +41,23 @@ export default function App() {
       {/* Protected routes */}
       <Route element={<PrivateRoute />}>
         <Route element={<Layout />}>
-          <Route path="/" element={<DashboardStubPage />} />
+          <Route path="/" element={<RoleDashboardRedirect />} />
           <Route path="/settings/security" element={<ChangePasswordPage />} />
 
-          {/* Admin-only routes */}
+          <Route element={<PrivateRoute allowedRoles={["SALES_REP"]} />}>
+            <Route path="/sales-rep/*" element={<RoleDashboardPage />} />
+          </Route>
+          <Route element={<PrivateRoute allowedRoles={["SALES_MANAGER"]} />}>
+            <Route path="/sales-manager/*" element={<RoleDashboardPage />} />
+          </Route>
+          <Route element={<PrivateRoute allowedRoles={["TECH_LEAD"]} />}>
+            <Route path="/tech-lead/*" element={<RoleDashboardPage />} />
+          </Route>
+          <Route element={<PrivateRoute allowedRoles={["FINANCE_OFFICER"]} />}>
+            <Route path="/finance/*" element={<RoleDashboardPage />} />
+          </Route>
           <Route element={<PrivateRoute allowedRoles={["ADMIN"]} />}>
+            <Route path="/admin" element={<RoleDashboardPage />} />
             <Route path="/admin/users" element={<UsersPage />} />
           </Route>
         </Route>
@@ -55,6 +67,18 @@ export default function App() {
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
+}
+
+function RoleDashboardRedirect() {
+  const { currentUser } = useAuth();
+  const destinations = {
+    SALES_REP: "/sales-rep",
+    SALES_MANAGER: "/sales-manager",
+    TECH_LEAD: "/tech-lead",
+    FINANCE_OFFICER: "/finance",
+    ADMIN: "/admin",
+  } as const;
+  return <Navigate to={destinations[currentUser?.role ?? "ADMIN"]} replace />;
 }
 
 /** Minimal full-screen loader shown while the auth session is being restored. */
