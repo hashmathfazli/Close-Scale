@@ -5,10 +5,10 @@ import { useAuth, type UserRole } from "../context/AuthContext";
 import "./Layout.css";
 
 const roleNavigation: Record<UserRole, { label: string; dashboard: string; items: { label: string; to: string; icon: typeof LayoutDashboard }[] }> = {
-  SALES_REP: { label: "Sales Rep", dashboard: "/sales-rep", items: [{ label: "Dashboard", to: "/sales-rep", icon: LayoutDashboard }, { label: "My deals", to: "/sales-rep/deals", icon: BriefcaseBusiness }] },
-  SALES_MANAGER: { label: "Sales Manager", dashboard: "/sales-manager", items: [{ label: "Dashboard", to: "/sales-manager", icon: LayoutDashboard }, { label: "Team pipeline", to: "/sales-manager/team", icon: ChartNoAxesCombined }] },
-  TECH_LEAD: { label: "Tech Lead", dashboard: "/tech-lead", items: [{ label: "Dashboard", to: "/tech-lead", icon: LayoutDashboard }, { label: "Projects", to: "/tech-lead/projects", icon: Wrench }] },
-  FINANCE_OFFICER: { label: "Finance", dashboard: "/finance", items: [{ label: "Overview", to: "/finance", icon: LayoutDashboard }, { label: "Finance queue", to: "/finance/invoices", icon: CircleDollarSign }] },
+  SALES_REP: { label: "Sales Rep", dashboard: "/sales-rep", items: [{ label: "Dashboard", to: "/sales-rep", icon: LayoutDashboard }, { label: "My leads", to: "/sales-rep/leads", icon: BriefcaseBusiness }] },
+  SALES_MANAGER: { label: "Sales Manager", dashboard: "/sales-manager", items: [{ label: "Dashboard", to: "/sales-manager", icon: LayoutDashboard }, { label: "Lead pipeline", to: "/sales-manager/leads", icon: ChartNoAxesCombined }] },
+  TECH_LEAD: { label: "Tech Lead", dashboard: "/tech-lead", items: [{ label: "Dashboard", to: "/tech-lead", icon: LayoutDashboard }, { label: "Assessments", to: "/tech-lead/leads", icon: Wrench }] },
+  FINANCE_OFFICER: { label: "Finance", dashboard: "/finance", items: [{ label: "Overview", to: "/finance", icon: LayoutDashboard }, { label: "Assessments", to: "/finance/leads", icon: CircleDollarSign }] },
   ADMIN: { label: "Administrator", dashboard: "/admin", items: [{ label: "Dashboard", to: "/admin", icon: LayoutDashboard }, { label: "Users", to: "/admin/users", icon: Users }] },
 };
 

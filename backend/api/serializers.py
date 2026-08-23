@@ -8,7 +8,7 @@ Currently contains:
 
 from rest_framework import serializers
 
-from .models import Document
+from .models import Assessment, Document, FollowUp, Interaction, Lead, LeadHistory, LeadNote, ProjectQueueItem
 
 
 class DocumentSerializer(serializers.ModelSerializer):
@@ -82,3 +82,60 @@ class DocumentUploadSerializer(serializers.ModelSerializer):
                 f"Allowed: PDF, DOC, DOCX, XLS, XLSX, PNG, JPG."
             )
         return value
+
+
+class LeadSerializer(serializers.ModelSerializer):
+    assigned_to_name = serializers.CharField(source="assigned_to.full_name", read_only=True)
+    created_by_name = serializers.CharField(source="created_by.full_name", read_only=True)
+
+    class Meta:
+        model = Lead
+        fields = "__all__"
+        read_only_fields = ["created_by", "created_at", "updated_at"]
+
+
+class LeadHistorySerializer(serializers.ModelSerializer):
+    actor_name = serializers.CharField(source="actor.full_name", read_only=True)
+    class Meta:
+        model = LeadHistory
+        fields = "__all__"
+        read_only_fields = ["lead", "actor", "created_at"]
+
+
+class InteractionSerializer(serializers.ModelSerializer):
+    recorded_by_name = serializers.CharField(source="recorded_by.full_name", read_only=True)
+    class Meta:
+        model = Interaction
+        fields = "__all__"
+        read_only_fields = ["recorded_by", "created_at"]
+
+
+class FollowUpSerializer(serializers.ModelSerializer):
+    assigned_to_name = serializers.CharField(source="assigned_to.full_name", read_only=True)
+    class Meta:
+        model = FollowUp
+        fields = "__all__"
+        read_only_fields = ["created_by", "completed_at", "cancelled_at"]
+
+
+class LeadNoteSerializer(serializers.ModelSerializer):
+    author_name = serializers.CharField(source="author.full_name", read_only=True)
+    class Meta:
+        model = LeadNote
+        fields = "__all__"
+        read_only_fields = ["author", "created_at"]
+
+
+class AssessmentSerializer(serializers.ModelSerializer):
+    assessor_name = serializers.CharField(source="assessor.full_name", read_only=True)
+    class Meta:
+        model = Assessment
+        fields = "__all__"
+        read_only_fields = ["requested_by", "status", "submitted_at", "created_at"]
+
+
+class ProjectQueueItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProjectQueueItem
+        fields = "__all__"
+        read_only_fields = fields

@@ -12,6 +12,7 @@ import { useAuth } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import LoginPage from "./pages/LoginPage";
 import RoleDashboardPage from "./pages/RoleDashboardPage";
+import LeadWorkspacePage from "./pages/LeadWorkspacePage";
 import Layout from "./components/Layout";
 import UsersPage from "./pages/admin/UsersPage";
 import ActivatePage from "./pages/ActivatePage";
@@ -45,18 +46,23 @@ export default function App() {
           <Route path="/settings/security" element={<ChangePasswordPage />} />
 
           <Route element={<PrivateRoute allowedRoles={["SALES_REP"]} />}>
+            <Route path="/sales-rep/leads" element={<LeadWorkspacePage />} />
             <Route path="/sales-rep/*" element={<RoleDashboardPage />} />
           </Route>
           <Route element={<PrivateRoute allowedRoles={["SALES_MANAGER"]} />}>
+            <Route path="/sales-manager/leads" element={<LeadWorkspacePage />} />
             <Route path="/sales-manager/*" element={<RoleDashboardPage />} />
           </Route>
           <Route element={<PrivateRoute allowedRoles={["TECH_LEAD"]} />}>
+            <Route path="/tech-lead/leads" element={<LeadWorkspacePage />} />
             <Route path="/tech-lead/*" element={<RoleDashboardPage />} />
           </Route>
           <Route element={<PrivateRoute allowedRoles={["FINANCE_OFFICER"]} />}>
+            <Route path="/finance/leads" element={<LeadWorkspacePage />} />
             <Route path="/finance/*" element={<RoleDashboardPage />} />
           </Route>
           <Route element={<PrivateRoute allowedRoles={["ADMIN"]} />}>
+            <Route path="/admin/leads" element={<LeadWorkspacePage />} />
             <Route path="/admin" element={<RoleDashboardPage />} />
             <Route path="/admin/users" element={<UsersPage />} />
           </Route>
